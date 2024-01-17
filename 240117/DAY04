@@ -71,9 +71,9 @@ RequestDisaptcher: 자바서블릿API에서 제공하는 인터페이스, 주로
 
 
 페이지 이동 
-1. foward 방식: rd.forward(request,response) 실제 페이지 이동(rd로 가라) 다 안고 감
-2. redirect 방식: post 방식, response.sendRedirect("Ex08.jsp") 지가 스스로 응답
-
+1. foward 방식: rd.forward(request,response) 실제 페이지 이동(rd로 가라) 다 안고 감(모든 것)
+2. redirect 방식: post 방식, response.sendRedirect("Ex08.jsp") 지가 스스로 응답, 페이지 이동이 주목적
+=> 단순 페이지 이동이 목적(sendRedirect)
 버튼하나에 서블릿이 만들어짐
 
 .trim() : 걸러준다. 의무적으로 붙인다. 

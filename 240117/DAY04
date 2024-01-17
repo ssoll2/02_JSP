@@ -67,6 +67,7 @@ RequestDisaptcher: 자바서블릿API에서 제공하는 인터페이스, 주로
 동적인 웹페이지를 생성하는 데 사용. 서블릿은 JSP페이지로 제어를 전달하고, JSP페이지에서는 화면을 구성하고 응답을 생성
 
 => RequesDispatcher rd = request.getRequestDispatcher("Ex07.jsp")로 보낸다.
+7번을 안고 간다.
 
 
 페이지 이동 

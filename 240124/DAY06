@@ -80,6 +80,7 @@ jsp -> 서블릿(request,getparameter();, dao호출)
                               dto(get, set)
 ==> MVC II
 
+DAO, DTO ==> 모델
 
 
 

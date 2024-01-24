@@ -50,6 +50,28 @@ mysql jdbc driver 다운 (압축파일로 올라옴 .jar(자바를 위한 압축
 링크만 걸어주면 자바가 알아서 만들어줌
 platfrom independent
 zip 파일 다운
+mysql-connector-j-8.3.0.jar web-inf -> lib-> 에 복사해서 붙여넣음
+
+
+데이터베이스에 접근하는 DAO가 있어야함
+DTO안에 저장되어 있는 것을 가지고 접근한다.
+DAO => select * from student
+
+DTO는 MODEL에 속함
+
+이클립스가 get, set메뉴를 자동적으로 만들어주는 메뉴가 있다.
+source -> genrate getter and setter
+
+
+중고차 판매 사이트 에 들어갈 데이터 베이스를 생각해야함
+번호, 차량번호, 제조사, 연식, 유종, 모델, 기어박스(오토, 스틱), 금액, 메모(사고차량인지 기타 사항), 이륜인지 사륜인지
+-> select문으로 만듬.
+DB에 넣었다가 가져와야 함.
+
+DTO는 저장만 하는 곳
+
+표준규격(model)
+서블릿(control)
 
 
 

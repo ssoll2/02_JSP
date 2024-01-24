@@ -1,0 +1,86 @@
+package sbs.model;
+
+// DB의 Student 테이블의 컬럼명과 동일하게
+// 멤버변수 구성하는 게 좋음.
+// 다른 패키지가 접근할 수 없도록 따로 만듬
+// 여기에는 자바코드를 넣는 건 아니다.
+// DTO는 저장만 하는 곳
+
+public class StudentDTO {
+	
+	private String hakbun;  // 학번
+	private String name1;   // 이름
+	private String major;   // 학과
+	private String phone;   // 연락처
+	private String addr;    // 주소
+	private String regdate; // 등록일
+	
+	public String getHakbun() {
+		return hakbun;
+	}
+	public void setHakbun(String hakbun) {
+		this.hakbun = hakbun;
+	}
+	public String getName1() {
+		return name1;
+	}
+	public void setName1(String name1) {
+		this.name1 = name1;
+	}
+	public String getMajor() {
+		return major;
+	}
+	public void setMajor(String major) {
+		this.major = major;
+	}
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+	public String getAddr() {
+		return addr;
+	}
+	public void setAddr(String addr) {
+		this.addr = addr;
+	}
+	public String getRegdate() {
+		return regdate;
+	}
+	public void setRegdate(String regdate) {
+		this.regdate = regdate;
+	}
+	
+	
+	// 자료를 주고 받을 수 있도록 getter, setter 메서드를 만든다.
+	/*
+	public String getHakbun() {
+		return hakbun;
+	}
+	public void setHakbun(String hakbun) { // 학번을 보관하겠다.
+		this.hakbun = hakbun;
+	}
+	public String getName1() {
+		return name1;
+	}
+	public void setName1(String name1) {
+		this.name1 = name1;
+	} 
+	계속 이런식으로 모든 변수에 getter, setter 메서드를 만든다...
+	그러나 너무 시간적으로 비효율적이고, 오타의 위험이 있다. */
+}
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	

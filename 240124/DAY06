@@ -1,1 +1,58 @@
 
+액션태그
+명령을 내리면 무조건 해당 페이지로 감. -> 원하는 작업을 할 수 있다.
+행위를 할 수 있는 태그
+페이지 이동: foward, 페이지포함: include(태그 안에 include 요파일을 포함을 시키겠다.)
+<% include file="include/header.jsp" %>
+- 표준태그(standard action): jsp페이지에서 바로 사용할 수 있는 액션
+- 커스텀태그(custom action): 별도의 라이브러리를 설치해서 사용하는 액션
+
+자바빈(Java Bean, 어려움) = DTO = VO
+: 데이터를 보관하는 장소(DTO), 정보의 덩어리, 즉, 데이터 저장소(데이터 객체)
+저장소에 담는다라는 것은 개발에서는 SET이라고 한다.
+집어놓은 데이터를 가져오는 것을 GET
+DTO에는 get(), set()메서드가 있음.
+메서드로 값을 집어넣어야 함.
+DAO : 서블릿과 데이터베이스 사이에서 자료를 주고받게 해줄 수 있는 객체
+setter/getter
+=> 메서드로 자료를 주고받는다.
+private 클래스 안에서만 생성됨
+
+DB를 접근할 때는 함부러 접근 못하게 접근 지정자를 이용한다.(private)
+
+자바빈과 관련된 액션 태그
+- <jsp:useBean> ==> DTO를 만들겠다. 자바빈을 생성하는 태그
+- <jsp:setProperty> ==> DTO에다가 값을 집어넣겠다. 자바빈에 정보를 저장하는 태그. SETTER
+- <jsp:getProperty> ==> 자바 빈에서 정보를 얻어오는 태그. GETTER
+==> 스프링할 때 씀
+수업에선 DTO를 사용해서 만듬
+형식)
+  - <jsp:useBean> 기본 형식  => DTO를 만들겠다
+    <jsp:useBean class="클래스 풀네임" id="빈 이름" [scope="범위"] />
+클래스 풀네임은 패키지를 포함(05_Student/sbs/StudentDTO), 빈 이름(StudentDTO)
+      => 옛날 방식, 스프링에서 이러한 방식을 쓰기도 함.                
+  - <jsp:setProperty> 기본 형식 
+    <jsp:setProperty name="빈 이름" property="프로퍼티 이름" value="값" />
+  빈이름: StudentDTO, 프로퍼티 이름: SetName, value: 홍길동
+  - <jsp:getProperty> 기본 형식
+    <jsp:getProperty name="빈 이름" property="프로퍼티 이름" />    
+가져올 객체 이름, 프로퍼티 이름:getName
+             
+    ==> 회원의 이름을 얻기 위해서 getName() 메서드를
+        호출하는 것과 같음.
+        id의 빈 이름과 name의 빈 이름은 반드시 같아야 함.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

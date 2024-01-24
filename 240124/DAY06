@@ -74,6 +74,12 @@ DTO는 저장만 하는 곳
 서블릿(control)
 
 
+jsp -> 서블릿(request,getparameter();, dao호출) 
+-> dao(db접속, sql 작성) -> ResultSet rs = null(set)<- db(검색)
+                                  |
+                              dto(get, set)
+==> MVC II
+
 
 
 

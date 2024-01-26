@@ -1,0 +1,45 @@
+jsp는 비주얼적인 것
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>  => UTF-8 을 포함시킨다.
+align : 정렬, align="center" 가운데 정렬
+hr : 선 태그, 단독 태그
+width="50%" color="red" : 테두리의 가로폭과 색깔
+br: 띄어쓰기
+<form action="member" method="get"> <%-- member 서블릿(클래스)을 찾아라 --%> submit을 누르면 member로 감
+get: 주소 표시줄에 보내지는 데이터가 다 보인다. 그러므로 보안에 취약하다. 다만 구현하기가 쉬워서 보안과 관련이 없는 페이지에서는 
+많이 활용한다.
+post: 주소 표시줄에 데이터가 표시되지 않는다. 즉, 보안에 강하다. 다만, 서버 입장에서는 처리 방법때문에 부담스러워한다. post방식은 변수로 나옴
+table : 한 테이블
+tr: 줄 개행
+th : table header, 줄의 제목, 아이디. 제목을 나타내는 칸
+td : 데이터가 들어가는 부분(한칸 삽입), 한칸을 만듬
+input
+type = "text" 글자를 입력해라.
+name="id" 아이디라는 변수로 글자를 입력
+type="password" => 입력하면 별 모양으로 나타나는 타입
+
+<th>회원 이름</th> <%--<td>회원 이름</td> --%> td로 해도되는 데 웹 형식이 안 맞아서 th로 하는 것
+coslpan : 칸 합치기 colspan =2 두칸 합치기 , 합치면 정렬 다시 줘야함
+rowspan : 줄 합치기
+type="submit" : form에 입력한 자료를 서버에 전송해주세요라는 버튼으로 변경
+type="reset" : form에 입력한 자료를 모두 지워주세요라는 버튼으로 변경
+value는 버튼에 들어갈 글자
+
+서버에 안가고 작동(버튼의 기능을 직접만들때는) type="button" => 자바스크립트와, 쿼리를 활용할 수 있음
+
+서블릿 => 프로그램 상 클래스 성격 , 클래스를 처리기로 만듬
+URL mapping: 매칭시킨다.
+MemberServlet => member로 바꿔야함
+서블릿 -> 처리기 생성 주기
+서블릿 생명주기
+생성(초기화,init) -> 서비스 -> doget/dopost -> destory => 처리하면 사라진다. 나타났다 사라짐
+webServlet : 매핑시킨다. action이름하고 매칭시키겠다.
+
+contentType 내 서버는 utf-8인데 상대방 웹브라우저는 다른 방식일 수 있으므로 response 객체에 글자 깨짐 방지 코드를 추가하여 보내준다.
+
+최소한 홈페이지를 만들려면 <html>, <head> </head> <body> </body> </html>
+
+웹페이지 형식 "" -> ''-> "" -> ''
+&nbsp : 한 공백(약속된 규칙)
+
+PrintWriter ==> 문자스트림

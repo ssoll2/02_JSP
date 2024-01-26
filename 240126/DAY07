@@ -13,7 +13,7 @@ DAO 클래스를 객체로 만들어서 가기 위해서 서블릿이 DB을 DAO�
 
 // 서블릿에 보낸 데이터를 받아준다.
 List<StudentDTO> student = 
-			(List<StudentDTO>)request.getAttribute("List");
+			(List<StudentDTO>)request.getAttribute("List"); // object 타입이라 형변환을 해줘야 함. list로 
 
 request.setAttribute("List", studentList); 중요
 RequestDispatcher rd 

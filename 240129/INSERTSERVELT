@@ -1,0 +1,102 @@
+package sbs.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import sbs.model.StudentDAO;
+import sbs.model.StudentDTO;
+
+ 
+@WebServlet("/insert")
+public class InsertServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    public InsertServlet() {
+        super();
+    }
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	
+		// student_insert.jsp 페이지에서 넘어온 학생 등록 관련 정보를 
+		// student 테이블에 저장하는 비지니스 로직
+		
+		//요청과 응다벵 대한 한글 깨짐 방지 처리 작업
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
+		// 1단계 : 학생 등록 폼 페이지에서 넘어온 데이터들을 받아 주어야 한다.
+		String student_hakbun = request.getParameter("hakbun").trim(); // .trim() 앞 뒤 공백 제거
+		String student_name = request.getParameter("name").trim();
+		String student_major = request.getParameter("major").trim();
+		String student_phone = request.getParameter("phone").trim();
+		String student_addr = request.getParameter("addr").trim();
+		
+		// 2단계 : DTO 객체에 폼 페이지에사 넘어온 데이터들을 저장해 주어야 한다.
+		// 즉, 변수들을 DTO에 넣는다.
+		StudentDTO dto = new StudentDTO();
+		
+		dto.setHakbun(student_hakbun);
+		dto.setName1(student_name);
+		dto.setMajor(student_major);
+		dto.setPhone(student_phone);
+		dto.setAddr(student_addr);
+		
+		
+		// 3단계 : DTO 객체를 DB에 전송해 주면 된다.
+		// DB에 전송하려면 DAO 객체가 있어야한다.
+		StudentDAO dao = new StudentDAO();
+		
+		int check = dao.insertStudent(dto); // dto 객체를 DB에 넣기 위해 insertStudent의 매개변수로 활용한다.
+		
+		// 테스트 코드
+		/* System.out.println(check); */
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			out.println("<script>");
+			out.println("alert('학생 등록 성공!!!')");
+			out.println("location.href = 'select'"); // select로 가라.
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('학생 등록 실패!!!')");
+			out.println("history.back()"); // 이전 페이지로 이동.
+			out.println("</script>");
+			
+		}
+		
+	
+	
+	
+	}
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

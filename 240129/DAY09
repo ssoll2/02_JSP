@@ -5,3 +5,9 @@ com.imbc
 서블릿은 컨트롤러
 ********숙제(다음주 월요일까지 미션... 다른 테이블가지고 만들기)
 
+CRUD
+
+CREATE
+READ(SELECT)
+UPDATE
+DELETE

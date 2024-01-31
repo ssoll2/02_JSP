@@ -1,0 +1,290 @@
+package sbs.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+
+
+/*
+ * DAO(Data Access Object)
+ * - 데이터 접근 객체 ==> DB에 접속(연동)하는 객체
+ * - DAO란 데이터베이스에 접속해서 데이터를 추가, 수정
+ *   삭제, 조회 등의 작업을 하는 클래스
+ * - 일반적으로 JSP 또는 Servlet에서 위의 작업들을
+ *   같이 사용할 수 있지만, 중복 코드 발생 및 유지보수,
+ *   코드의 모듈화 등을 위해서 일반적으로 DAO 클래스를
+ *   따로 만들어서 사용을 함. 
+ */
+
+public class StudentDAO {
+
+	/* 암기 또는 복붙으로 연습... 각자의 노력... */
+	
+	// DB와 연동하는 객체
+	Connection con = null;
+	
+	// DB에 SQL문을 전송하는 객체
+	PreparedStatement pstmt = null;
+	
+	// SQL문을 실행한 후에 결과값을 가지고 있는 객체
+	ResultSet rs = null;
+	
+	// 쿼리문을 저장할 객체
+	String sql = null;
+	
+	public StudentDAO() {
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://localhost:3333/hms";
+		String user = "root";
+		String password = "1234";
+		
+		try {
+			// 1단계 : mysql드라이버를 메모리로 로딩 작업.
+			Class.forName(driver);
+			
+			// 2단계 : mysql 데이터베이스와 연결 작업 진행
+			con = DriverManager.getConnection(url, user, password);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	} // 기본 생성자 end
+	
+	
+// 여기부터 MVC 코딩 구역
+	
+	// student 테이블에서 학생 전체 목록을 조회하는 메서드.
+	// selectStudentList()를 통하여 DB에서 조회된 자료를 List에 담아 리턴한다.
+	// 단, List에는 StudentDTO 객체가 들어가 있다.
+	public List<StudentDTO> selectStudentList(){
+		
+		// ArrayList를 생성한다. => 조회된 자료를 저장할 곳을 만드는 작업
+		List<StudentDTO> list = new ArrayList<StudentDTO>(); // 그릇을 만들자
+		
+		try {
+			// 3단계 : 데이터베이스에 전송할 SQL문 작성.
+			// student 테이블에서 학번을 내림차순하여 모든 데이터를 조회해와라~~
+			sql = "select * from student order by hakbun desc";
+			
+			// 4단계 : SQL문을 데이터베이스 전송 객체에 저장.
+			pstmt = con.prepareStatement(sql); //sql를 db에 전송하기 위한 객체
+			
+			// 5단계 : SQL문을 데이터베이스에 전송 및 실행
+			rs = pstmt.executeQuery(); // 쿼리문을 실행해라
+			
+			while(rs.next()) { //제목 다음줄에 실제 데이터가 있다면...
+				StudentDTO dto = new StudentDTO(); // 한 줄을 dto로 보내서 객체와 시켜라.
+				
+				// 실행하여 조회된 데이터를 DTO객체에 넣기 위한 코드
+				dto.setHakbun(rs.getString("hakbun"));
+				dto.setName1(rs.getString("name1"));
+				dto.setMajor(rs.getString("major"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setRegdate(rs.getString("regdate"));
+				
+				list.add(dto);
+				
+			}
+			
+			// 6단계 : DB와 연결되어 있던 자원 종료.
+			rs.close();
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return list;
+		
+		
+		
+	} // selectStudentList() end
+	
+	// student 테이블에 학생을 등록하는 메서드.
+	public int insertStudent(StudentDTO dto) {
+		
+		// insert 여부를 리턴하기 위한 변수
+		int result = 0; 
+		
+		
+		try {
+			// 3단계 : 데이터베이스에 전송할 SQL문 작성.
+			sql = "insert into student values(?,?,?,?,?,curdate())";
+			
+			// 4단계 : SQL문을 데이터베이스 전송 객체에 저장.
+			pstmt = con.prepareStatement(sql);
+			
+			// 4-1단계 : ?(플레이스 홀더)에 데이터를 배정.
+			pstmt.setString(1, dto.getHakbun());
+			pstmt.setString(2, dto.getName1());
+			pstmt.setString(3, dto.getMajor());
+			pstmt.setString(4, dto.getPhone());
+			pstmt.setString(5, dto.getAddr());
+			
+			// 5단계 : SQL문을 데이터베이스에 전송 및 실행
+			// select: executeQuery(), 이외 insert, delete, update는 executeUpdate() 사용
+			result = pstmt.executeUpdate();
+			
+			// 6단계 : 데이터베이스와 연결되어 있던 자원 종료.
+			pstmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+		
+	} // insertStudent(dto) end
+	
+	// 학번에 해당하는 학생의 데이터 삭제 메서드.
+	public int deleteStudent(String hakbun) {
+		
+		// 삭제 유무를 판단하기 위한 변수... 리턴값을 활용할 목적.
+		int result = 0;
+		
+		try {
+			// 3단계 : 데이터베이스에 전송할 SQL문 작성
+			sql = "delete from student where hakbun = ?";
+			
+			// 4단계 : SQL문을 데이터베이스 전송 객체 준비
+			pstmt = con.prepareStatement(sql);
+			
+			// 4-1단계 : ?(플레이스 홀더)에 데이터를 배정.
+			pstmt.setString(1, hakbun);
+			
+			// 5단계 : SQL문을 데이터베이스에 전송 및 실행
+			result = pstmt.executeUpdate();
+			
+			// 6단계 : 데이터베이스에 연결되어있던 자원 종료.
+			pstmt.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		
+		return result;
+		
+		
+		
+		
+	} // dao.deleteStudent(hakbun) end
+	
+	// 학번에 해당하는 학생의 정보를 가져오는 메서드.
+	public StudentDTO getStudent(String hakbun) {
+		
+		StudentDTO dto = null; // 학생 객체를 가져온게 없다.
+		
+		try {
+			// 3단계 : 데이터베이스에 전송할 SQL문 작성
+			sql = "select * from student where hakbun = ?";
+			
+			// 4단계 : SQL문을 데이터베이스에 전송할 준비
+			pstmt = con.prepareStatement(sql);
+			
+			// 4-1단계 : 플레이스 홀더에 값을 매핑한다.
+			pstmt.setString(1, hakbun);
+			
+			// 5단계 : SQL문을 데이터베이스에 전송 및 실행
+			// SQL에서 select문은 executeQuery()를 쓰고 
+			// 이외에 insert, delete, update는 executeUpdate()를 사용한다.
+			rs = pstmt.executeQuery();
+			
+			// 1명의 데이터만 조회해서 가져오는 것이므로 while 대신 if를 사용한다.
+			if(rs.next()) { // 제목 줄을 제외한 다음 실질 데이터가 있다면...
+				
+				// 학생의 정보를 DTO에 담는다.
+				dto = new StudentDTO();
+				
+				// DB에서 가져와서 DTO에 넣어야 하므로 set메서드를 이용한다.
+				dto.setHakbun(rs.getString("hakbun"));
+				dto.setName1(rs.getString("name1"));
+				dto.setMajor(rs.getString("major"));
+				dto.setPhone(rs.getString("phone"));
+				dto.setAddr(rs.getString("addr"));
+				dto.setRegdate(rs.getString("regdate"));
+				
+			}
+			rs.close();
+			pstmt.close();
+			con.close();
+			
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return dto;
+		
+		
+	}// getStudent(String hakbun) end
+	
+	public int updateStudent(StudentDTO dto) {
+		
+		int result = 0;
+		
+		try {
+			// 3단계 : 데이터베이스에 전송할 SQL문 작성
+			sql = "update student set major = ?, phone = ?, addr = ? where hakbun = ?";
+			
+			// 4단계 : SQL문을 데이터베이스 전송 객체에 담아서 준비시킨다.
+			pstmt = con.prepareStatement(sql);
+			
+			// 4-1단계 : ?(플레이스 홀더)에 데이터를 배정.
+			pstmt.setString(1, dto.getMajor());
+			pstmt.setString(2, dto.getPhone());
+			pstmt.setString(3, dto.getAddr());
+			pstmt.setString(4, dto.getHakbun());
+			
+			// 5단계 : SQL문을 데이터베이스에 전송 및 실행
+			// rs(ResultSet)는 select를 통해 하나 이상의 데이터를 조회하여 가져올 때 사용하는 변수이고
+			// 지금은 update된 유무만 확인하기 때문에 rs를 사용하지 않는다.
+			result = pstmt.executeUpdate();
+			
+			// 6단계 : 데이터베이스와 연결되어 있던 자원 종료.
+			// select, insert, update, delete는 상황에 따라 close하는 변수의 갯수가 다르다.
+			pstmt.close();
+			con.close();
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return result;
+		
+		
+	} //updateStudent(dto) end
+	
+	
+	
+	
+	
+	
+	
+} // class end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

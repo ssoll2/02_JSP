@@ -27,7 +27,7 @@
 					<th>학생 학번</th>
 					<td>
 						<!-- 값을 변경하면 안될 때는 readonly를 쓴다.-->
-						<input type="text" name="hakbbun" value="<%=cont.getHakbun()%>" readonly>
+						<input type="text" name="hakbun" value="<%=cont.getHakbun()%>" readonly>
 					</td>
 				</tr>
 				<tr>

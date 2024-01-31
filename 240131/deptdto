@@ -1,0 +1,35 @@
+package com.dept.model;
+
+public class DeptDTO {
+	// 외부로부터 직접적인 접근을 막기 위해 변수를 private으로 선언한다. => 캡슐화
+	// 다만, 값을 참조(값을 넣기, 가져오기)하려면 메서드를 이용한다. => getter, setter
+	
+	private int deptno; // 부서번호
+	private String dname; // 부서이름
+	private String location; // 부서 지역
+	
+	// source 메뉴에서 getter, setter 
+	
+	public int getDeptno() {
+		return deptno;
+	}
+	public void setDeptno(int deptno) {
+		this.deptno = deptno;
+	}
+	public String getDname() {
+		return dname;
+	}
+	public void setDname(String dname) {
+		this.dname = dname;
+	}
+	public String getLocation() {
+		return location;
+	}
+	public void setLocation(String location) {
+		this.location = location;
+	}
+	
+
+	
+
+}

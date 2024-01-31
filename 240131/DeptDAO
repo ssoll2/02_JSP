@@ -1,0 +1,45 @@
+package com.dept.model;
+
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+
+public class DeptDAO {
+
+	/* 암기 또는 복붙으로 연습... 각자의 노력... */
+	
+	// DB와 연동하는 객체
+	Connection con = null;
+	
+	// DB에 SQL문을 전송하는 객체
+	PreparedStatement pstmt = null;
+	
+	// SQL문을 실행한 후에 결과값을 가지고 있는 객체
+	ResultSet rs = null;
+	
+	// 쿼리문을 저장할 객체
+	String sql = null;
+	
+	public DeptDAO() {
+		String driver = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://localhost:3333/hms";
+		String user = "root";
+		String password = "1234";
+		
+		try {
+			// 1단계 : mysql드라이버를 메모리로 로딩 작업.
+			Class.forName(driver);
+			
+			// 2단계 : mysql 데이터베이스와 연결 작업 진행
+			con = DriverManager.getConnection(url, user, password);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+	}// 기본 생성자 end
+	
+} // DAO 코딩 구역
+

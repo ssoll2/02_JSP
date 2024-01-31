@@ -8,3 +8,6 @@ form 태그를 안쓰면 get 방식
 
 rs는 조회할 때만 사용
 
+package 이름 만들때 com.dept.controller이 방식으로
+(인터넷 도메인 주소 역순)
+

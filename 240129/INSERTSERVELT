@@ -27,7 +27,7 @@ public class InsertServlet extends HttpServlet {
 		// student_insert.jsp 페이지에서 넘어온 학생 등록 관련 정보를 
 		// student 테이블에 저장하는 비지니스 로직
 		
-		//요청과 응다벵 대한 한글 깨짐 방지 처리 작업
+		//요청과 응답에 대한 한글 깨짐 방지 처리 작업
 		request.setCharacterEncoding("utf-8");
 		response.setContentType("text/html;charset=utf-8");
 		

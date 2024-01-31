@@ -1,0 +1,45 @@
+package com.dept.controller;
+
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dept.model.DeptDAO;
+
+
+@WebServlet("/list")
+public class ListServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    public ListServlet() {
+        super();
+    }
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// main.jsp 페이지에서 요청
+		// 전체 부서 목록 이라는 글자를 클릭하면
+		//dept 테이블에 있는 전체 부석 목록을
+		// 화면에 보여줘야 함 ==> 요청에 대해 응답 ==> DB에 접근하므로 DAO가 필요하다.
+		
+		// 1단계 : DB와 연결 작업 진행
+		DeptDAO dao = new DeptDAO();
+		
+		// 2단계 : DB에서 DEPT 테이블의 전체 부서 목록을 조회. 여기서 부터 숙제
+		List<DeptDTO> list = dao.deptList();
+		
+		
+		
+	
+	
+	
+	
+	
+	}
+
+}

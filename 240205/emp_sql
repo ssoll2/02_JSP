@@ -1,5 +1,6 @@
 -- SQL 기록용(복구용)
 
+
 -- EMP테이블
 CREATE TABLE EMP (
     EMPNO INT(4) PRIMARY KEY AUTO_INCREMENT,

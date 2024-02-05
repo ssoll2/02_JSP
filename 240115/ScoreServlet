@@ -1,0 +1,51 @@
+-- Ex08
+package sbs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/score")
+public class ScoreServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    public ScoreServlet() {
+        super();
+        
+    }
+
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 한글 깨짐 방지 설정
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
+		PrintWriter out = response.getWriter();
+		
+		String student_name = request.getParameter("name");
+		int kor_score = Integer.parseInt(request.getParameter("kor"));
+		int eng_score = Integer.parseInt(request.getParameter("eng"));
+		int math_score = Integer.parseInt(request.getParameter("math"));
+		
+		
+		out.println("<html><head></head><body>");
+		out.println("<div align='center'>");
+		out.println("<h2>");
+		out.println("이름: " + student_name + "<br>");
+		out.println("국어점수: " + kor_score + "<br>");
+		out.println("영어점수: " + eng_score + "<br>");
+		out.println("수학점수: " + math_score + "<br>");
+		out.println("합계: " + (kor_score+ eng_score + math_score) + "<br>");
+		out.println("평균: " + (kor_score+ eng_score + math_score)/3 +"<br>");
+		out.println("</h2>");
+		out.println("</div></body></html>");
+	}
+
+}

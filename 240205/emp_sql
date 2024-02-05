@@ -1,16 +1,15 @@
 -- SQL 기록용(복구용)
 
-
 -- EMP테이블
 CREATE TABLE EMP (
-    EMPNO INT(4) PRIMARY KEY AUTO_INCREMENT,
-    ENAME VARCHAR(10),
-    JOB VARCHAR(9),
-    MGR INT(4),
-    HIREDATE DATE,
-    SAL DECIMAL(7, 2),
-    COMM DECIMAL(7, 2),
-    DEPTNO INT(2)
+    EMPNO INT(4) PRIMARY KEY,   -- 사원번호
+    ENAME VARCHAR(10), 			-- 사원이름
+    JOB VARCHAR(9),				-- 업무
+    MGR INT(4),					-- 관리자번호
+    HIREDATE DATE,				-- 입사일
+    SAL DECIMAL(7, 2),			-- 급여
+    COMM DECIMAL(7, 2),			-- 보너스
+    DEPTNO INT(2)				-- 부서번호
 );
 
 

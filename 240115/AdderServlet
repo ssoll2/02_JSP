@@ -1,0 +1,47 @@
+--Ex05
+package sbs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/adder")
+public class AdderServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    public AdderServlet() {
+        super();
+       
+    }
+
+	// HttpServletRequest 객체를 참조하는 변수 request
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		int su1 = Integer.parseInt(request.getParameter("num1")); // 객체화 시켰다. 문자를 숫자로 바꿀땐 이렇게
+		int su2 = Integer.parseInt(request.getParameter("num2")); // => 숫자화 시켜서 받아줬다.
+		
+		// 응답시 한글 깨짐 방지 설정
+		response.setContentType("text/html;charset=utf-8"); // 톰캣이 자동생성해주는 객체
+		
+		PrintWriter out = response.getWriter(); // 글씨를 쓸 수 있는 메소드를 가져온다. System.out.println와 같은 의미 이게 있어야 웹페이지에 표시할 수 있음
+		
+		out.println("<html><head></head><body>");
+		out.println("<h2> 두 수의 합 >>>" + (su1 + su2) + "</h2>");
+		out.println("</body></html>");
+		
+		
+	
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+	}
+
+}

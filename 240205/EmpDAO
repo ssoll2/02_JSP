@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class EmpDAO {
 	
@@ -90,4 +92,56 @@ public void closeConn(PreparedStatement pstmt, Connection con) {
 			e.printStackTrace();
 		}
 	} // closeConn() end
+	
+	// Emp 테이블에서 전체 사원 리스트를 조회하는 메서드.
+	public List<EmpDTO> dao.allList() {
+		
+		// List(컬렉션) 안에 EmpDTO 객체를 하나씩 넣을 준비한다.
+		List<EmpDTO> list = new ArrayList<EmpDTO>();
+		
+	
+		
+		try {
+			// 1~2단계 진행 : 드라이버 로딩 및 데이터베이스와 연동 작업 진행
+			openConn(); // EmpDAO에 이미 관련 작업 메서드를 만들었기 때문에 호출만 하면 처리 끝
+			
+			// 3단계 : 데이터베이스에 전송할 SQL문 작성.
+			sql = "select * from emp order by empno desc";
+			
+			// 4단계 : SQL문을 데이터베이스 전송객체에 인자로 전달
+			pstmt = con.prepareStatement(sql);
+			
+			// 5단계 : SQL문을 DB에 전송 및 실행
+			rs = pstmt.executeQuery();
+			
+			while(rs.next()) {
+				
+				// 가져온 데이터를 DTO에 담는다.
+				EmpDTO dto = new EmpDTO();
+				
+				dto.setEmpno(rs.getInt("empno"));
+				dto.setEname(rs.getString("ename"));
+				dto.setJob(rs.getString("job"));
+				dto.setMgr(rs.getInt("mgr"));
+				dto.setHiredate(rs.getString("hiredate"));
+				dto.setComm(rs.getInt("comm"));
+				dto.setDeptno(rs.getInt("deptno"));
+				
+				// dto에 담은 데이터를 리스트에 추가한다.
+				list.add(dto);
+			}
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			// 6단계 : 데이터베이스와 연결되어 있던 자원 종료.
+			closeConn(rs, pstmt, con);
+			
+		}
+		return list;
+		
+	}// allList() end
+
+
+
 }// class end()

@@ -1,0 +1,369 @@
+== Ex04
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div align="center">
+		<hr width="50%" color="red">
+			<h2>회원 정보 입력 폼 페이지</h2>
+		<hr width="50%" color="red">
+		<br><br>
+		
+		<form action="join" method="post">
+			<table border="1">
+				<tr>
+					<th>아이디</th>
+					<td>
+					<input type="text" name="id">
+					</td>
+				</tr>
+				
+				<tr>
+					<th>비밀번호</th>
+					<td>
+					<input type="password" name="pwd">
+					</td>
+				</tr>
+				
+				<tr>
+					<th>회원 이름</th>
+					<td>
+					<input type="text" name="name">
+					</td>
+				</tr>
+				
+				
+				<tr>
+					<th>회원 연락처</th>
+					<td>
+					<input type="text" name="phone">
+					</td>
+				</tr>
+				
+				<tr>
+					<th>회원 주소</th>
+					<td>
+					<input type="text" name="addr">
+					</td>
+				</tr>
+				
+				<tr>
+					<th>회원 취미</th>
+					<td>
+					
+					<%-- checkbox인 경우에는 name 속성에 들어 있는 
+						 hobby라는 변수명이 아니라 배열명이 된다.--%> <%--변수이름은 동일해야 한다.
+						 value-> 눈에 보이는 글자, hobby라고하는 변수 --%>
+					<input type="checkbox" name="hobby" value="여행">여행&nbsp; 
+					<input type="checkbox" name="hobby" value="독서">독서&nbsp;
+					<input type="checkbox" name="hobby" value="운동">운동&nbsp;
+					<input type="checkbox" name="hobby" value="게임">게임&nbsp;
+					<input type="checkbox" name="hobby" value="잠자기">잠자기&nbsp;
+					</td>
+				</tr>
+				
+				
+				
+				
+				<tr>
+					<td colspan="2" align="center">
+					<input type="submit" value="회원가입">&nbsp;
+					<input type="reset" value="다시작성">
+					</td>
+				</tr>
+			</table>
+		</form>
+			
+	</div>
+</body>
+</html>
+
+
+== POST 방식
+package sbs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/join")
+public class JoinServlet extends HttpServlet { 
+	private static final long serialVersionUID = 1L;
+       
+    
+    public JoinServlet() {
+        super();
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	}
+
+	
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// 한글 깨짐 방지 설정(무조건 쓰고 시작해야한다.)
+		request.setCharacterEncoding("utf-8"); // post 형식
+		response.setContentType("text/html; charset=utf-8");
+		
+		// 1단계 : Ex04.jsp 폼 페이지에서 넘어온 정보들을 받아주자.
+		
+		String member_id = request.getParameter("id"); 
+		String member_pwd = request.getParameter("pwd");
+		String member_name = request.getParameter("name");
+		String member_phone = request.getParameter("phone");
+		String member_addr = request.getParameter("addr");
+		String[] hobbys = request.getParameterValues("hobby"); // 배열 파라미터는 values를 사용한다. 문자 배열 타입으로 받아준다.
+		
+		// 2단계 : 웹 브라우저에 요청한 결과를 보여주자.
+		//        문자 스트림을 생성한다.
+		PrintWriter out = response.getWriter(); // ctrl + shift + O(import)
+		
+		out.println("<html><head></head><body>");
+		out.println("<div align='center'>");
+		out.println("<h2>회원 정보</h2>");
+		out.println("<table border='1'>");
+		
+		out.println("<tr>");
+		out.println("<th>회원아이디</th>");
+		out.println("<td>"+member_id+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 비밀번호</th>");
+		out.println("<td>"+member_pwd+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 이름</th>");
+		out.println("<td>"+member_name+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>"); 
+		out.println("<th>회원 연락처</th>");
+		out.println("<td>"+member_phone+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 주소</th>");
+		out.println("<td>"+member_addr+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 취미</th>");
+		out.println("<td>");
+		out.println(Arrays.toString(hobbys)); // 배열에 대한 주소 값 
+		out.println("</td>");
+		out.println("</tr>");
+		
+		
+
+		out.println("</div></body></html>");
+		
+		System.out.println();
+--------------------------------------------------------------------------------------------------------------------------------------
+== Ex03
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%> 
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+	<div align="center"> <%-- align = 정렬, 가운데 정렬 --%>
+		<hr width="50%" color="red"> <%-- hr =선, 단독태그 --%>
+			<h2>회원 정보 입력 폼 페이지</h2>
+		<hr width="50%" color="red"> <%-- 테두리의 가로폭과 색깔 --%>
+		<br><br> <%-- br 두개는 두 줄 정도 뗐다. --%>
+		
+		<form action="member" method="get"> <%-- member 서블릿(클래스)을 찾아라 --%>
+			<table border="1"> 
+				<tr>
+					<th>아이디</th>
+					<td>
+					<input type="text" name="id">
+					</td>
+				</tr>
+				<tr>
+					<th>비밀번호</th>
+					<td>
+					<input type="password" name="pwd">
+					</td>
+				</tr>
+				<tr>
+					<th>회원 이름</th> 
+					<td>
+					<input type="text" name="name">
+					</td>
+				</tr>
+				<tr>
+					<th>회원 연락처</th>
+					<td>
+					<input type="text" name="phone">
+					</td>
+				</tr>
+				<tr>
+					<th>회원 주소</th>
+					<td>
+					<input type="text" name="addr">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+					<input type="submit" value="회원가입">&nbsp;
+					<input type="reset" value="다시작성">
+					</td>
+				</tr>
+			</table>
+		</form>
+	</div>
+	
+
+</body>
+</html>
+
+== GET 	방식
+package sbs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/member")
+public class MemberServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    public MemberServlet() {
+        super();
+       
+    }
+
+	
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		
+		// Ex03.jsp 페이지에서 넘어온 정보들(요청)을 받아주자.
+		// input으로 받은 데이터는 모두 문자열로 인식한다.
+		// 숫자로 변환할 때는 Integer.parsint() 한다.
+		String member_id = request.getParameter("id"); // 아이디라는 변수를 받아옴 => member_id에 저장
+		String member_pwd = request.getParameter("pwd");
+		String member_name = request.getParameter("name");
+		String member_phone = request.getParameter("phone");
+		String member_addr = request.getParameter("addr");
+		
+		// 응답을 할 때 한글 깨짐 방지 설정
+		response.setContentType("text/html; charset=UTF-8");
+		 
+		// 응답할 페이지를 작성한다.
+		// 서블릿형식 = (주)자바 + (부)html
+		
+		// 서블릿으로 웹 페이지를 작성하려면 writer 스트림이 필요하다.
+		PrintWriter out = response.getWriter();
+		
+		out.println("<html><head></head><body>");
+		out.println("<div align='center'>");
+		out.println("<h2>회원 정보</h2>");
+		out.println("<table border='1'>");
+		
+		out.println("<tr>");
+		out.println("<th>회원아이디</th>");
+		out.println("<td>"+member_id+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 비밀번호</th>");
+		out.println("<td>"+member_pwd+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 이름</th>");
+		out.println("<td>"+member_name+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>"); 
+		out.println("<th>회원 연락처</th>");
+		out.println("<td>"+member_phone+"</td>");
+		out.println("</tr>");
+		
+		out.println("<tr>");
+		out.println("<th>회원 주소</th>");
+		out.println("<td>"+member_addr+"</td>");
+		out.println("</tr>");
+		
+		out.println("</body></html>");
+		
+		System.out.println();
+	}
+
+}
+
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

@@ -1,0 +1,67 @@
+package com.dept.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dept.model.DeptDAO;
+import com.dept.model.DeptDTO;
+
+
+@WebServlet("/insert")
+public class InsertServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+   
+    public InsertServlet() {
+        super();
+       
+    }
+
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("utf-8");
+		response.setContentType("text/html;charset=utf-8");
+		
+		int dept_deptno = Integer.parseInt(request.getParameter("deptno"));
+		String dept_dname = request.getParameter("dname").trim();
+		String dept_location = request.getParameter("loc").trim();
+		
+		
+		DeptDTO dto = new DeptDTO();
+		
+		dto.setDeptno(dept_deptno);
+		dto.setDname(dept_dname);
+		dto.setLoc(dept_location);
+		
+		
+		DeptDAO dao = new DeptDAO();
+		
+		int check = dao.InsertDept(dto);
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			out.println("<script>");
+			out.println("alert('부서 추가 성공!!!')");
+			out.println("location.href = 'list'"); 
+			out.println("</script>");
+		}else {
+			out.println("<script>");
+			out.println("alert('부서 추가 실패!!!')");
+			out.println("history.back()"); // 이전 페이지로 이동.
+			out.println("</script>");
+			
+		}
+		
+	
+	
+	
+	
+	}
+
+}

@@ -1,0 +1,83 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- <script type="text/javascript">
+	// 유효성 검사
+	function validate() {
+		if(frm.name.value=="") {
+			alert("이름을 입력해주세요.")
+			frm.name.focus()
+			return false // 페이지 이동 강제적으로 막는 명령어(return 못하게)
+		}
+		if (frm.kor.value=="") {
+			alert("국어 점수를 입력해주세요.")
+			frm.kor.focus()
+			return false
+		}
+		if (frm.eng.value=="") {
+			alert("영어 점수를 입력해주세요.")
+			frm.eng.focus()
+			return false
+		} 
+		if (frm.math.value=="") {
+			alert("수학 점수를 입력해주세요.")
+			frm.math.focus()
+			return false
+		} 
+		
+		frm.submit() 
+	}
+</script>  -->
+</head>
+<body>
+	<%-- [문제] 서블릿을 이용하여 성적을 처리해 보세요. (유효성 검사해보기)--%>
+	<%-- 학생 성적 입력 서블릿에서 입력값을 받아주소 계산하여 바로 출력한다. PrintWriter 써서 --%>
+	<div align="center">
+		<hr width="50%" color="blue">
+			<h2>학생 성적</h2>
+		<hr width="50%" color="blue">
+		<br><br>
+		
+		<form action="score" method="post">
+		
+			<table border="1">
+				<tr>
+					<th>학생이름</th>
+					<td>
+						<input type="text" name="name">
+					</td>
+				</tr>
+				<tr>
+					<th>국어점수</th>
+					<td>
+						<input type="text" name="kor">
+					</td>
+				</tr>
+				<tr>
+					<th>영어점수</th>
+					<td>
+						<input type="text" name="eng">
+					</td>
+				</tr>
+				<tr>
+					<th>수학점수</th>
+					<td>
+						<input type="text" name="math">
+					</td>
+				</tr>
+				<tr>
+					<td colspan="2" align="center">
+						<input type="submit" value="계산">&nbsp;&nbsp;
+						<input type="reset" value="초기화">
+					</td>
+				</tr>
+	
+	
+	</div>
+
+</body>
+</html>

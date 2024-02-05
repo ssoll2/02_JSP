@@ -1,0 +1,69 @@
+package com.dept.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import com.dept.model.DeptDAO;
+import com.dept.model.DeptDTO;
+
+
+@WebServlet("/dept_update_ok")
+public class UpdateOkServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+       
+    
+    public UpdateOkServlet() {
+        super();
+       
+    }
+
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html;charset=UTF-8");
+		
+		
+		int dept_deptno = Integer.parseInt(request.getParameter("deptno"));
+		String dept_dname = request.getParameter("dname");
+		String dept_location = request.getParameter("loc");
+		
+		DeptDTO dto = new DeptDTO();
+		dto.setDeptno(dept_deptno);
+		dto.setDname(dept_dname);
+		dto.setLoc(dept_location);
+		
+		DeptDAO dao = new DeptDAO();
+		
+		int check = dao.updateDept(dto);
+		
+		PrintWriter out = response.getWriter();
+		
+		if(check > 0) {
+			out.println("<script>");
+			out.println("alert('부서 수정 성공!!!')");
+			out.println("location.href='list'");
+			out.println("</script>");
+			
+		}else {
+			out.println("<script>");
+			out.println("alert('부서 수정 실패~~~')");
+			out.println("history.back()");
+			out.println("</script>");
+			
+		}
+		
+		
+		
+	
+	
+	
+	
+	}
+
+}

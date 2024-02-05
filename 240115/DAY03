@@ -1,0 +1,36 @@
+JSP: html + 자바(쌩자바, 변형 자바)
+변형자바: jstl(지금은 이걸 씀)
+
+
+DAY03
+
+
+Ex04와 joinServlet 은 1:1 매핑
+
+web.xml => 기본적으로 매핑되게 설정하는 목적
+
+num1 = 변수명, 입력값
+
+<!-- 서블릿 매핑 방법 --> 
+<servlet>
+  <servlet-name>bbc</servlet-name>
+  <servlet-class>sbs.Adder1Servlet</servlet-class>
+</servlet>
+
+<servlet-mapping>
+  <servlet-name>bbc</servlet-name>
+  <url-pattern>/adder1<url-pattern>
+</servelet-mapping>
+
+생략되면 get 방식
+
+서블릿:  자바 + 약간의 html
+jsp : html + 약간의 자바
+
+서블릿 -> service -> doget/dopost => 소멸
+
+웹페이지 - 서블릿
+view    - controll - model --> DB
+
+web.xml -> 프로젝트 설정 및 매핑 할 수 있는 파일
+

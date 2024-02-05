@@ -1,0 +1,50 @@
+--Ex06
+
+package sbs;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+
+@WebServlet("/student")
+public class StudentServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+   
+    public StudentServlet() {
+        super();
+    }
+
+	
+	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// 요청 받은 자료에 대해 한글 깨짐 방지 코드를 먼저 넣는다.
+		request.setCharacterEncoding("utf-8"); // jsp에서 넘어온 한글을 처리
+		response.setContentType("text/html;charset=utf-8");
+		
+		String student_num = request.getParameter("num"); // 학번
+		String student_name = request.getParameter("name");
+		String student_major = request.getParameter("major");
+		int student_age = Integer.parseInt(request.getParameter("age"));
+		String student_phone = request.getParameter("phone");
+		String[] student_subjects = request.getParameterValues("subject");
+		
+		PrintWriter out = response.getWriter();
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+	}
+
+}

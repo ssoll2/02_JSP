@@ -11,7 +11,7 @@
        동시 접속자가 많은 웹 사이트에서는 전체적인 성능이 낮아짐.
      - 다시 말하자면 빈번한 연결과 해제는 시스템 성능에 큰 영향을 미침.
      
-  2) DBCP(DataBase Connection Pool)
+ 2) DBCP(DataBase Connection Pool)
      - 데이터베이스와 Connection을 맺고 있는 객체를 관리하기 위한
        방법을 말함.
      - JDBC의 단점을 극복하기 위해서 사용됨.

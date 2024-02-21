@@ -24,7 +24,7 @@ public class InsertOkServlet extends HttpServlet {
     }
 
 
-	protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+protected void service(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
 	// 게시판 글 작성 폼 페이지에서 넘어온 데이터들을
 	// DB의 board 테이블에 저장하는 비지니스 로직.

@@ -1,2 +1,11 @@
 롯데렌탈 비즈니스 클론 
 https://inspiring-otter-f7f8b3.netlify.app/
+
+JDBC => 현재 실무에선 안씀
+DBCP -> 데이터베이스 전담 객체(연결, 종료)
+
+pool이라는 곳에 객체를 만듬
+-> connection 객체를  만듬
+
+javax.sql => dao대신 datasource를 씀
+톰캣서버에 java:comp/env는 정해져 있음

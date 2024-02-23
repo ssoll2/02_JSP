@@ -18,7 +18,7 @@
 		
 		application.setAttribute("A", 100000);
 		
-		/* request.getRequestDispatcher("Ex06.jsp").forward(request, response); */
+		request.getRequestDispatcher("Ex06.jsp").forward(request, response); 
 	%>
 	<h3>
 		결과 >>> <%=res %> <br>

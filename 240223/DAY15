@@ -1,1 +1,5 @@
-
+JSTL JAR파일 다운 받는 법
+아파치 톰캣에서 TAGLIBS에서 APACH STANDARD TAGLIBS누름
+standard 1.0 누름
+binary누름
+파일 사이즈가 2.8인 jakarta -taglibs-standard-1.1.0.zip 다운

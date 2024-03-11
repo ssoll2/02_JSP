@@ -1,0 +1,10 @@
+# BBS 게시판 Action Class
+bbs_list.go = execute|com.reply.action.BbsListAction
+bbs_content.go = execute|com.reply.action.BbsContentAction
+bbs_write_ok.go = execute|com.reply.action.BbsWriteOkAction
+
+
+
+# BBS 게시판 View Page
+
+

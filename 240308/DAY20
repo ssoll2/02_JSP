@@ -48,3 +48,17 @@ java.lang.ClassNotFoundException: bbs/bbs_content.jsp;
 	at java.base/java.lang.Thread.run(Thread.java:832)
 Value >>> execute|bbs/bbs_content.jsp;
 
+
+
+# BBS  Action Class
+bbs_list.go = execute|com.reply.action.BbsListAction
+bbs_content.go = execute|com.reply.action.BbsContentAction
+bbs_write_ok.go = execute|com.reply.action.BbsWriteOkAction
+
+
+
+# BBS  View Page
+bbs_content.go = execute|bbs/bbs_content.jsp;
+
+
+

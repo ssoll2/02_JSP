@@ -1,62 +1,42 @@
-package com.reply.action;
-
-import java.io.IOException;
-import java.io.PrintWriter;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import com.reply.model.BbsDAO;
-import com.reply.model.BbsDTO;
-
-public class BbsWriteOkAction implements Action {
-
-	@Override
-	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		
-		String board_writer = request.getParameter("writer").trim();
-		String board_title = request.getParameter("title").trim();
-		String board_cont = request.getParameter("cont").trim();
-		String board_pwd = request.getParameter("pwd").trim();
-	
-		BbsDTO dto = new BbsDTO();
-		dto.setBoard_writer(board_writer);
-		dto.setBoard_title(board_title);
-		dto.setBoard_cont(board_cont);
-		dto.setBoard_pwd(board_pwd);
-		
-		BbsDAO dao = BbsDAO.getInstance();
-		
-		int check = dao.insertBbs(dto);
-       		
-		PrintWriter out = response.getWriter();
-		
-		request.setAttribute("Cont", dto);
-		
-		ActionForward forward = new ActionForward();
-		
-	
-		
-		if(check > 0) {
-			out.println("<script>");
-			out.println("alert('게시글 추가 성공!!!')");
-			out.println("location.href='bbs_list.go'");
-			out.println("</script>");
-		} else {
-			out.println("<script>");
-			out.println("alert('게시글 추가 실패!!!')");
-			out.println("history.back()");
-			out.println("</script>");
-			
-		}
-		
-		
-		
-		forward.setRedirect(false);
-		
-		return forward;
-		
-		
-	}
-
-}
+public int insertBbs(BbsDTO dto) {
+				
+				int result = 0, count = 0;
+				
+				
+				try {
+					openConn();
+					
+					// 글번호를 확인하기 위한 코드
+					sql = "select max(board_no) from jsp_bbs";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					rs = pstmt.executeQuery();
+					
+					if(rs.next()) {
+						count = rs.getInt(1);
+					}
+					
+					// 실제로 DB에 insert하는 코드
+					sql = "insert into jsp_bbs value(?, ?, ?, ?, ?, default, now())";
+					
+					pstmt = con.prepareStatement(sql);
+					
+					pstmt.setInt(1, count+1);
+					pstmt.setString(2, dto.getBoard_writer());
+					pstmt.setString(3, dto.getBoard_title());
+					pstmt.setString(4, dto.getBoard_cont());
+					pstmt.setString(5, dto.getBoard_pwd());
+					
+					result = pstmt.executeUpdate();
+					
+					
+				} catch (SQLException e) {
+					e.printStackTrace();
+				} finally {
+					closeConn(rs, pstmt, con);
+				}
+				
+				return result;
+				
+			} // insertBbs(BbsDTO dto) end

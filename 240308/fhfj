@@ -9,73 +9,54 @@ import javax.servlet.http.HttpServletResponse;
 import com.reply.model.BbsDAO;
 import com.reply.model.BbsDTO;
 
-public class ModifyOkAction implements Action {
+public class BbsWriteOkAction implements Action {
 
 	@Override
 	public ActionForward execute(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		
-		// 수정 폼 페이지에서 넘어온 데이터들을
-		// DB에 전송하여 게시글을 수정하는 비지니스 로직
-		
 		String board_writer = request.getParameter("writer").trim();
 		String board_title = request.getParameter("title").trim();
-		String board_content = request.getParameter("content").trim();
-		String board_pwd = request.getParameter("pwd").trim(); // 사용자가 수정을 위해 입력한 비밀번호
-		
-		// 히든으로 넘어온 데이터들도 받아 주어야 한다.
-		int board_no = Integer.parseInt(request.getParameter("no").trim());
-		String db_pwd = request.getParameter("db_pwd").trim();
-		
-		
-		
+		String board_cont = request.getParameter("cont").trim();
+		String board_pwd = request.getParameter("pwd").trim();
+	
 		BbsDTO dto = new BbsDTO();
-		
-		dto.setBoard_no(board_no);
 		dto.setBoard_writer(board_writer);
 		dto.setBoard_title(board_title);
-		dto.setBoard_cont(board_content);
+		dto.setBoard_cont(board_cont);
 		dto.setBoard_pwd(board_pwd);
-		
-		
 		
 		BbsDAO dao = BbsDAO.getInstance();
 		
-		PrintWriter out= response.getWriter();
+		int check = dao.insertBbs(dto);
+       		
+		PrintWriter out = response.getWriter();
+		
+		request.setAttribute("Cont", dto);
 		
 		ActionForward forward = new ActionForward();
 		
-		forward.setRedirect(false);
+	
 		
-		
-		
-		
-		if(board_pwd.equals(db_pwd)) { //사용자가 입력한 비번과 DB에 비번이 같습니까?
-			int check = dao.updatebbs(dto);
-			
-			if(check > 0) { // 수정이 성공했다면
-				out.println("<script>");
-				out.println("alert('게시물 수정 성공')");
-				out.println("location.href='bbs_list.go?no=" + board_no);
-				out.println("</script>");
-			} else { // 수정이 실패했다면..
-				out.println("<script>");
-				out.println("alert('게시물 수정 실패')");
-				out.println("history.back()");
-				out.println("</script>");
-				
-			}
-			
-		} else { // 비밀번호가 틀린 경우
+		if(check > 0) {
 			out.println("<script>");
-			out.println("alert('비밀번호가 틀려요~ 확인해 주세요~')");
+			out.println("alert('게시글 추가 성공!!!')");
+			out.println("location.href='bbs_list.go'");
+			out.println("</script>");
+		} else {
+			out.println("<script>");
+			out.println("alert('게시글 추가 실패!!!')");
 			out.println("history.back()");
 			out.println("</script>");
 			
 		}
 		
 		
-		forward.setPath("bbs/bbs_list.jsp");
+		
+		forward.setRedirect(false);
+		
 		return forward;
+		
+		
 	}
 
 }
